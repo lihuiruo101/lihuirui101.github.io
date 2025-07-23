@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>환경설정</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <h1>Svelton Store [Preview]</h1>
+      <nav>
+        <div class="nav-category">둘러보기</div>
+        <a href="dashboard.html">대시보드</a>
+        <a href="환경설정.html" class="active">환경설정</a>
+        <a href="건의사항.html">건의사항</a>
+
+        <div class="nav-category">카테고리</div>
+        <a href="카테고리.html">카테고리 설정</a>
+
+        <div class="nav-category">기록</div>
+        <a href="구매기록.html">구매기록</a>
+
+        <div class="nav-category">관리자 설정</div>
+        <a href="스토어관리.html">스토어 관리</a>
+        <a href="사용자관리.html">사용자 관리</a>
+        <a href="역할관리.html">역할 관리</a>
+        <a href="쿠폰관리.html">쿠폰 관리</a>
+        <a href="웹훅관리.html">웹훅 관리</a>
+        <a href="상품관리.html">상품 관리</a>
+        <a href="재고관리.html">재고 관리</a>
+        <a href="구매기록관리.html">구매 기록 관리</a>
+
+        <div class="nav-category">알림</div>
+        <a href="공지사항.html">공지사항</a>
+        <a href="알림사항.html">알림사항</a>
+        <a href="이벤트.html">이벤트</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <h2 class="dashboard-title">환경설정</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>스토어 이름 변경</h3>
+          <input type="text" placeholder="예: 24 Tf Store" class="input">
+        </div>
+
+        <div class="card">
+          <h3>공지사항 표시</h3>
+          <label class="toggle-switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="card">
+          <h3>유저 피드백 활성화</h3>
+          <label class="toggle-switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="card">
+          <h3>관리자 전용 모드</h3>
+          <label class="toggle-switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="card">
+          <h3>TO BE CONTINUED</h3>
+          <p>곧 더 많은 설정이 추가됩니다.<br><span class="small">Stay tuned!</span></p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>
