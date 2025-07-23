@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>로그인 / 회원가입</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(270deg, #ff00cc, #3333ff, #00ffcc, #ffcc00);
+      background-size: 800% 800%;
+      animation: gradient 30s ease infinite;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: floatUp 25s infinite linear;
+      background: radial-gradient(circle, rgba(255,255,255,0.4), rgba(255,255,255,0));
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(100vh) scale(0.5); }
+      to { transform: translateY(-10vh) scale(1.2); }
+    }
+
+    .container {
+      background: rgba(0,0,0,0.7);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      width: 350px;
+      z-index: 2;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .tabs button {
+      flex: 1;
+      padding: 10px;
+      background: #333;
+      color: #ccc;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .tabs button.active {
+      background: #0f0;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .form {
+      display: none;
+      flex-direction: column;
+    }
+
+    .form.active {
+      display: flex;
+    }
+
+    .form input {
+      margin-bottom: 15px;
+      padding: 10px;
+      background: #222;
+      border: 1px solid #444;
+      color: #fff;
+      border-radius: 6px;
+    }
+
+    .form button {
+      padding: 10px;
+      background: #0f0;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .message {
+      margin-top: 10px;
+      color: #f00;
+      font-size: 0.9em;
+      height: 1em;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      z-index: 2;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 15px;
+      font-size: 14px;
+      color: #fff;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <!-- 물방울 -->
+  <script>
+    for (let i = 0; i < 20; i++) {
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      const size = Math.random() * 60 + 20;
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      bubble.style.left = `${Math.random() * 100}%`;
+      bubble.style.animationDuration = `${15 + Math.random() * 15}s`;
+      document.body.appendChild(bubble);
+    }
+  </script>
+
+  <h1>환영합니다</h1>
+
+  <div class="container">
+    <div class="tabs">
+      <button id="login-tab" class="active">로그인</button>
+      <button id="register-tab">회원가입</button>
+    </div>
+
+    <div id="login-form" class="form active">
+      <input id="login-username" placeholder="아이디" required />
+      <input id="login-password" type="password" placeholder="비밀번호" required />
+      <button onclick="login()">로그인</button>
+    </div>
+
+    <div id="register-form" class="form">
+      <input id="register-username" placeholder="아이 디" required />
+      <input id="register-password" type="password" placeholder="비밀번호" required />
+      <input id="register-confirm" type="password" placeholder="비밀번호 확인" required />
+      <button onclick="register()">회원가입</button>
+    </div>
+
+    <div class="message" id="msg"></div>
+  </div>
+
+  <div class="footer">Made by CHROMATIC</div>
+
+  <script>
+    const loginTab = document.getElementById('login-tab');
+    const registerTab = document.getElementById('register-tab');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const msg = document.getElementById('msg');
+
+    loginTab.onclick = () => {
+      loginTab.classList.add('active');
+      registerTab.classList.remove('active');
+      loginForm.classList.add('active');
+      registerForm.classList.remove('active');
+      msg.textContent = "";
+    };
+
+    registerTab.onclick = () => {
+      registerTab.classList.add('active');
+      loginTab.classList.remove('active');
+      registerForm.classList.add('active');
+      loginForm.classList.remove('active');
+      msg.textContent = "";
+    };
+
+    function register() {
+      const username = document.getElementById('register-username').value.trim();
+      const password = document.getElementById('register-password').value;
+      const confirm = document.getElementById('register-confirm').value;
+
+      if (!username || !password || !confirm) {
+        msg.textContent = "모든 항목을 입력하세요.";
+        return;
+      }
+
+      if (password !== confirm) {
+        msg.textContent = "비밀번호가 일치하지 않습니 다.";
+        return;
+      }
+
+      if (localStorage.getItem(username)) {
+        msg.textContent = "이미 존재하는 아이디입니다.";
+        return;
+      }
+
+      localStorage.setItem(username, password);
+      msg.textContent = "회원가입이 완료되었습니다.";
+    }
+
+    function login() {
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      const saved = localStorage.getItem(username);
+      if (saved === null) {
+        msg.textContent = "존재하지 않는 아이디입니다.";
+        return;
+      }
+
+      if (saved !== password) {
+        msg.textContent = "비밀번호가 일치하지 않습니 다.";
+        return;
+      }
+
+      // 로그인 성공 시 현재 사용자 아이디 저장
+      localStorage.setItem('currentUser', username);
+
+      msg.textContent = "";
+      window.location.href = "my_account.html";
+    }
+  </script>
+</body>
+</html>
